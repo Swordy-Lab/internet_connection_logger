@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+import json
 
 def Log_to_file (message, status, path, logname):
     if os.path.isfile(os.path.join(path, logname)):
@@ -41,6 +42,9 @@ def fastping (hostname):
         return True
     else:
         return False
-    
-version = 1.1
+
+def import_json (filepath):
+    return json.loads((open(filepath, "r", encoding="utf-8")).read())
+
+version = 1.2
 info = "Log_to_file"
