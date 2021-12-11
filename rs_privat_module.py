@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 import json
 
-def Log_to_file (message, status, path, logname):
+def Log_to_file (message, status, path, logname, write_to_log, write_to_file):
     if os.path.isfile(os.path.join(path, logname)):
         file = open(os.path.join(path, logname), "r").read()
         if(file == ""):
@@ -25,11 +25,13 @@ def Log_to_file (message, status, path, logname):
     date = datetime.today().strftime('%d.%m.%Y')
     now = (datetime.now()).strftime("%H:%M:%S")
     entry = (now + " " + date + " | " + current_status + " | " + message)
-    file_save = open(os.path.join(path, logname), "w")
-    file_save.write(file + is_break + entry)
-    file_save.close
+    if write_to_file:
+        file_save = open(os.path.join(path, logname), "w")
+        file_save.write(file + is_break + entry)
+        file_save.close
 
-    print(entry)
+    if write_to_log:
+        print(entry)
 
 def fastping (hostname):
     if os.name == 'nt':
@@ -46,5 +48,5 @@ def fastping (hostname):
 def import_json (filepath):
     return json.loads((open(filepath, "r", encoding="utf-8")).read())
 
-version = 1.2
+version = 1.3
 info = "Log_to_file"

@@ -1,8 +1,12 @@
 import rs_privat_module
 import datetime
 from time import sleep
+import os
 
 config = rs_privat_module.import_json("config.json")
+
+if not os.path.exists("Logs"):
+    os.makedirs("Logs")
 
 last = 0
 
