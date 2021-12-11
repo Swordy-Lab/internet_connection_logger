@@ -30,15 +30,17 @@ def Log_to_file (message, status, path, logname):
 
     print(entry)
 
-def ping (hostname):
-    import os
-    response = os.system("ping -c 1 " + hostname)
+def fastping (hostname):
+    if os.name == 'nt':
+        response = os.system('ping -n 1 -w 2999 ' + hostname + " > trash.txt'")
+        print(response)
+    else:
+        response = os.system("ping -c 1 " + hostname)
 
-    #and then check the response...
     if response == 0:
         return True
     else:
         return False
-
+    
 version = 1.1
 info = "Log_to_file"
