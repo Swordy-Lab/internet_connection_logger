@@ -32,8 +32,8 @@ def Log_to_file (message, status, path, logname):
 
 def fastping (hostname):
     if os.name == 'nt':
-        response = os.system('ping -n 1 -w 2999 ' + hostname + " > trash.txt'")
-        print(response)
+        response = os.system('ping -n 1 -w 2999 ' + hostname + " > trash.txt")
+        os.remove("trash.txt")
     else:
         response = os.system("ping -c 1 " + hostname)
 
