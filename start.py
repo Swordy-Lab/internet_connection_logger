@@ -43,6 +43,4 @@ while(True):
             else:
                 rs_privat_module.Log_to_file("Connection lost. No connection to gateway.", 1, ("Logs" + "/" + year + "-" + month), (today + ".log"), True, True)
 
-    print("test")
-
     sleep(5)
