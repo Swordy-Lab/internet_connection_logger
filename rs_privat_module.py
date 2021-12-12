@@ -48,5 +48,17 @@ def fastping (hostname):
 def import_json (filepath):
     return json.loads((open(filepath, "r", encoding="utf-8")).read())
 
-version = 1.3
-info = "Log_to_file"
+def export_json (filepath, json_to_export, append):
+    if append and os.path.isfile(filepath):
+        json_temp = (json.loads((open(filepath, "r", encoding="utf-8")).read()))
+        for item_dict in json_to_export:
+            if not(item_dict in json_temp):
+                json_temp.append(item_dict)
+        with open(filepath, 'w', encoding="utf-8") as out_file:
+            json.dump(json_temp, out_file)
+    else:
+        with open(filepath, 'w', encoding="utf-8") as out_file:
+            json.dump(json_to_export, out_file)    
+
+version = 1.4
+info = "Log_to_file", "fastping", "import_json", "export_json"

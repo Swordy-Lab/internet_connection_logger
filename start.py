@@ -2,11 +2,6 @@ import rs_privat_module
 import datetime
 from time import sleep, time
 import os
-try:
-    import keyboard
-    print('Stop the script bye pressin "q".')
-except:
-    print('Module "Keyboard" is missing. You cant stop the script without an exception. You can install the Module bye typing "pip install keyboard" in the command prompt.')
 
 config = rs_privat_module.import_json("config.json")
 
@@ -21,20 +16,22 @@ while(True):
     
     if status:
         if last == 0:
-            rs_privat_module.Log_to_file("Connected", 0, "Logs", (str(datetime.date.today()) + ".log"), True, False)
+            rs_privat_module.Log_to_file("Connected", 0, "Logs", (str(datetime.date.today()) + ".log"), True, True)
+            last = 2
         elif last == 1:
-            stop = time.time()
+            stop = time()
             downtime = stop - start
-            rs_privat_module.Log_to_file(("Connection restored" + " | Downtime " + downtime), 1, "Logs", (str(datetime.date.today()) + ".log"), True, True)
+            rs_privat_module.Log_to_file(("Connection restored" + " | Downtime " + str(int(downtime))), 1, "Logs", (str(datetime.date.today()) + ".log"), True, True)
             last = 0
+            
 
     else:
-        if last == 0:
-            start = time()
-            rs_privat_module.Log_to_file("Connection lost", 2, "Logs", (str(datetime.date.today()) + ".log"), True, True)
-            last = 1
+        if last == 0 or last == 2:
+            if rs_privat_module.fastping("192.168.0.1"):
+                start = time()
+                rs_privat_module.Log_to_file("Connection lost", 2, "Logs", (str(datetime.date.today()) + ".log"), True, True)
+                last = 1
+            else:
+                rs_privat_module.Log_to_file("Connection lost. No connection to gateway.", 1, "Logs", (str(datetime.date.today()) + ".log"), True, True)
 
     sleep(5)
-
-    if keyboard.read_key() == "q":
-        break
