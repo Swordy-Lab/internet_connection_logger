@@ -11,12 +11,11 @@ downtime = 0
 while(True):
     today = str(datetime.date.today())
     year,month,date = today.split("-")
-    rs_privat_module.check_and_create_folder("Logs" + "/" + year + "-" + month)
     status = rs_privat_module.fastping(config["url"])
 
     rs_privat_module.check_and_create_folder("Logs")
-    rs_privat_module.check_and_create_folder("Logs/")
-
+    rs_privat_module.check_and_create_folder("Logs" + "/" + year + "-" + month)
+    
     if status:
         if last == 0:
             rs_privat_module.Log_to_file("Connected", 0, ("Logs" + "/" + year + "-" + month), (today + ".log"), True, True)
