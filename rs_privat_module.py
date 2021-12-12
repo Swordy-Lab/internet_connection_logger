@@ -60,5 +60,9 @@ def export_json (filepath, json_to_export, append):
         with open(filepath, 'w', encoding="utf-8") as out_file:
             json.dump(json_to_export, out_file)    
 
-version = 1.4
+def check_and_create_folder (filepath):
+    if not (os.path.exists(filepath)):
+        os.mkdir(filepath)
+
+version = 1.5
 info = "Log_to_file", "fastping", "import_json", "export_json"
