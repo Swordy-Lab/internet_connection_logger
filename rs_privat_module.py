@@ -38,7 +38,7 @@ def fastping (hostname):
         response = os.system('ping -n 1 -w 2999 ' + hostname + " > trash.txt")
         os.remove("trash.txt")
     else:
-        response = os.system("ping -c 1 " + hostname)
+        response = os.system("ping -c 1 " + hostname + " >/dev/null")
 
     if response == 0:
         return True
