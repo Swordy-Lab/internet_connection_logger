@@ -64,5 +64,13 @@ def check_and_create_folder (filepath):
     if not (os.path.exists(filepath)):
         os.mkdir(filepath)
 
-version = 1.5
-info = "Log_to_file", "fastping", "import_json", "export_json"
+def check_os():
+    if os.name == 'nt':
+        return "windows"
+    elif os.name == "posix":
+        return "mac"
+    else:
+        return "linux"
+
+version = 1.6
+info = "Log_to_file", "fastping", "import_json", "export_json", "check_os"
